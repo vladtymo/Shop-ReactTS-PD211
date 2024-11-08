@@ -4,7 +4,7 @@ import { DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { ProductModel } from '../models/products';
 
-const api = "https://shop-pd211-awdhcvf3ebdpb7es.polandcentral-01.azurewebsites.net/api/products/";
+const api = import.meta.env.VITE_PRODUCTS_URL;
 
 const Products = () => {
 
