@@ -4,18 +4,21 @@ import {
     InfoCircleFilled,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
+    PlusCircleFilled,
     ProductFilled,
     UploadOutlined,
     UserOutlined,
     VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
 
 const AppLayout: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const { pathname } = useLocation();
+
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
@@ -27,20 +30,25 @@ const AppLayout: React.FC = () => {
                 <Menu
                     theme="dark"
                     mode="inline"
-                    defaultSelectedKeys={['1']}
+                    defaultSelectedKeys={[pathname]}
                     items={[
                         {
-                            key: '1',
+                            key: '/',
                             icon: <HomeFilled />,
                             label: <Link to="/">Home</Link>,
                         },
                         {
-                            key: '2',
+                            key: '/products',
                             icon: <ProductFilled />,
                             label: <Link to="/products">Products</Link>,
                         },
                         {
-                            key: '3',
+                            key: '/create',
+                            icon: <PlusCircleFilled />,
+                            label: <Link to="/create">Create Product</Link>,
+                        },
+                        {
+                            key: '/about',
                             icon: <InfoCircleFilled />,
                             label: <Link to="/about">About</Link>,
                         },
