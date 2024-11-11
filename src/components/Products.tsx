@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Space, Table, TableProps, Tag } from 'antd';
-import { DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditFilled, InfoCircleOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { ProductModel } from '../models/products';
 
@@ -59,6 +59,9 @@ const Products = () => {
                 <Space size="middle">
                     <Link to={`/details/${record.id}`}>
                         <Button color="primary" icon={<InfoCircleOutlined />} />
+                    </Link>
+                    <Link to={`/edit/${record.id}`}>
+                        <Button color="primary" icon={<EditFilled />} />
                     </Link>
 
                     <Popconfirm
