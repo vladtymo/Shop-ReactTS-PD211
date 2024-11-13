@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import {
     HomeFilled,
     InfoCircleFilled,
+    LoginOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     PlusCircleFilled,
     ProductFilled,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
+    UserAddOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
@@ -56,7 +55,7 @@ const AppLayout: React.FC = () => {
                 />
             </Sider>
             <Layout>
-                <Header style={{ padding: 0, background: colorBgContainer }}>
+                <Header style={{ padding: 0, background: colorBgContainer, display: "flex", justifyContent: "space-between" }}>
                     <Button
                         type="text"
                         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -67,6 +66,25 @@ const AppLayout: React.FC = () => {
                             height: 64,
                         }}
                     />
+                    <div>
+                        <Button
+                            type="text"
+                            icon={<LoginOutlined />}
+                            style={{
+                                fontSize: '16px',
+                                height: 64,
+                            }}
+                        >Login</Button>
+                        <Link to="/register">
+                            <Button
+                                type="text"
+                                icon={<UserAddOutlined />}
+                                style={{
+                                    fontSize: '16px',
+                                    height: 64,
+                                }}
+                            >Register</Button></Link>
+                    </div>
                 </Header>
 
                 <Content

@@ -6,6 +6,7 @@ import Products from './components/Products'
 import ProductInfo from './components/ProductInfo'
 import CreateProduct from './components/CreateProduct'
 import EditProduct from './components/EditProduct'
+import Register from './components/Register'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/create' element={<CreateProduct />} />
           <Route path='/details/:id' element={<ProductInfo />} />
           <Route path='/edit/:id' element={<EditProduct />} />
+          <Route path='/register' element={<Register />} />
           <Route path='*' element={<p>Page Not Found!</p>} />
         </Route>
       </Routes>
