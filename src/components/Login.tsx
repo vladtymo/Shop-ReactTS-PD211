@@ -2,24 +2,27 @@ import React from 'react';
 import type { FormProps } from 'antd';
 import { Button, Checkbox, DatePicker, Form, Input, message } from 'antd';
 import axios from 'axios';
-import { UserFormField } from '../models/accounts';
+import { UserFormField, UserLoginField } from '../models/accounts';
+import { accountService } from '../services/account.service';
 
 const api = import.meta.env.VITE_ACCOUNTS_URL;
 
-const onFinish: FormProps<UserFormField>['onFinish'] = (values) => {
+const onFinish: FormProps<UserLoginField>['onFinish'] = (values) => {
     console.log('Success:', values);
 
-    axios.post(api + "register", values).then(res => {
-        if (res.status === 200)
-            message.success("User registered successfully!");
+    axios.post(api + "login", values).then(res => {
+        if (res.status === 200) {
+            accountService.login(res.data.token);
+            message.success("Signed In successfully!");
+        }
     }).catch(err => {
         message.error(err.response.data.detail);
-    })
+    });
 };
 
-const Register: React.FC = () => (
+const Login: React.FC = () => (
     <>
-        <h2>Register New User</h2>
+        <h2>Sign In</h2>
 
         <Form
             name="basic"
@@ -46,31 +49,17 @@ const Register: React.FC = () => (
                 <Input.Password />
             </Form.Item>
 
-            <Form.Item<UserFormField>
-                label="Phone Number"
-                name="phoneNumber"
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item<UserFormField>
-                label="Birthdate"
-                name="birthdate"
-            >
-                <DatePicker />
-            </Form.Item>
-
             {/* <Form.Item<UserFormField> name="remember" valuePropName="checked" label={null}>
                 <Checkbox>Remember me</Checkbox>
             </Form.Item> */}
 
             <Form.Item label={null}>
                 <Button type="primary" htmlType="submit">
-                    Register
+                    Login
                 </Button>
             </Form.Item>
         </Form>
     </>
 );
 
-export default Register;
+export default Login;

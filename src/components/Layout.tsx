@@ -3,6 +3,7 @@ import {
     HomeFilled,
     InfoCircleFilled,
     LoginOutlined,
+    LogoutOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     PlusCircleFilled,
@@ -11,6 +12,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { accountService } from '../services/account.service';
 
 const { Header, Sider, Content } = Layout;
 
@@ -67,23 +69,42 @@ const AppLayout: React.FC = () => {
                         }}
                     />
                     <div>
-                        <Button
-                            type="text"
-                            icon={<LoginOutlined />}
-                            style={{
-                                fontSize: '16px',
-                                height: 64,
-                            }}
-                        >Login</Button>
-                        <Link to="/register">
-                            <Button
-                                type="text"
-                                icon={<UserAddOutlined />}
-                                style={{
-                                    fontSize: '16px',
-                                    height: 64,
-                                }}
-                            >Register</Button></Link>
+                        {accountService.isAuthenticated() ?
+                            <>
+                                <span>Hello, ...</span>
+                                <Button
+                                    type="text"
+                                    icon={<LogoutOutlined />}
+                                    onClick={accountService.logout}
+                                    style={{
+                                        fontSize: '16px',
+                                        height: 64,
+                                    }}
+                                >Logout</Button>
+                            </>
+                            :
+                            <>
+                                <Link to="/login">
+                                    <Button
+                                        type="text"
+                                        icon={<LoginOutlined />}
+                                        style={{
+                                            fontSize: '16px',
+                                            height: 64,
+                                        }}
+                                    >Login</Button>
+                                </Link>
+                                <Link to="/register">
+                                    <Button
+                                        type="text"
+                                        icon={<UserAddOutlined />}
+                                        style={{
+                                            fontSize: '16px',
+                                            height: 64,
+                                        }}
+                                    >Register</Button></Link>
+                            </>
+                        }
                     </div>
                 </Header>
 

@@ -3,5 +3,11 @@ export type UserFormField = {
     password?: string;
     phoneNumber?: string;
     birthdate?: Date;
-    remember?: boolean;
+    // remember?: boolean;
+};
+
+export type UserLoginField = {
+    email?: string;
+    password?: string;
+    // remember?: boolean;
 };
