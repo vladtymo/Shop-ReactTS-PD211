@@ -1,6 +1,6 @@
-import { LeftCircleOutlined, LeftOutlined } from '@ant-design/icons'
+import { LeftOutlined } from '@ant-design/icons'
 import { Button, Flex, Image, Skeleton, Space, Tag } from 'antd'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ProductModel } from '../models/products';
 

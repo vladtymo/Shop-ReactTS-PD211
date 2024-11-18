@@ -11,3 +11,9 @@ export type UserLoginField = {
     password?: string;
     // remember?: boolean;
 };
+
+export interface AccountData {
+    id: string;
+    email: string;
+    birthdate?: Date;
+}

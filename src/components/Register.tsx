@@ -1,6 +1,6 @@
 import React from 'react';
 import type { FormProps } from 'antd';
-import { Button, Checkbox, DatePicker, Form, Input, message } from 'antd';
+import { Button, DatePicker, Form, Input, message } from 'antd';
 import axios from 'axios';
 import { UserFormField } from '../models/accounts';
 
