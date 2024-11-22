@@ -16,7 +16,8 @@ export type ProductFormField = {
     quantity: number;
     price: number;
     discount: number;
-    imageUrl: string;
+    // imageUrl: string;
+    image?: File;
     description?: string;
     categoryId: number;
 };

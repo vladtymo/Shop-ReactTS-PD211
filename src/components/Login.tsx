@@ -5,11 +5,13 @@ import axios from 'axios';
 import { UserFormField, UserLoginField } from '../models/accounts';
 import { accountService } from '../services/account.service';
 import { useAccountContext } from '../contexts/account.context';
+import { useNavigate } from 'react-router-dom';
 const api = import.meta.env.VITE_ACCOUNTS_URL;
 
 const Login: React.FC = () => {
 
     const { setAccount } = useAccountContext();
+    const navigate = useNavigate();
 
     const onFinish: FormProps<UserLoginField>['onFinish'] = (values) => {
         console.log('Success:', values);
@@ -23,6 +25,7 @@ const Login: React.FC = () => {
                     id: "rety-grge-aerge",
                     email: "vlad@ukr.net",
                 });
+                navigate(-1);
             }
         }).catch(err => {
             message.error(err.response.data.detail);

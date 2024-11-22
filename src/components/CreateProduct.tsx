@@ -1,11 +1,16 @@
-import { Button, Form, FormProps, Input, InputNumber, message, Select, Space } from 'antd'
+import { Button, Form, FormProps, Input, InputNumber, message, Select, Space, Upload } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { CategoryModel, CategoryOption, ProductFormField } from '../models/products';
-import { LeftOutlined } from '@ant-design/icons';
+import { LeftOutlined, UploadOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 const api = import.meta.env.VITE_PRODUCTS_URL;
+
+const normFile = (e: any) => {
+    return e?.file.originFileObj;
+};
 
 export default function CreateProduct() {
 
@@ -28,19 +33,20 @@ export default function CreateProduct() {
 
         console.log(item);
 
-        fetch(api, {
-            method: "POST",
-            body: JSON.stringify(item),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        }).then(res => {
+        const form = new FormData();
+
+        for (const key in item) {
+            form.append(key, (item as any)[key]);
+        }
+
+        axios.post(api, form).then(res => {
             if (res.status === 200) {
-                message.success("Product created successfully!");
+                message.success("Product created successfuly!");
                 navigate("/products");
             }
-            else
-                message.error("Something went wrong!");
+        }).catch(err => {
+            message.error("Something went wrong!");
+            console.log(err);
         });
     }
 
@@ -84,9 +90,14 @@ export default function CreateProduct() {
                 <Form.Item<ProductFormField> label="Description" name="description">
                     <TextArea rows={4} />
                 </Form.Item>
-                <Form.Item<ProductFormField> label="Image" name="imageUrl">
-                    <Input />
+                <Form.Item<ProductFormField> label="Image" name="image" valuePropName="file" getValueFromEvent={normFile}>
+                    <Upload maxCount={1}>
+                        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                    </Upload>
                 </Form.Item>
+                {/* <Form.Item<ProductFormField> label="Image" name="imageUrl">
+                    <Input />
+                </Form.Item> */}
                 <Form.Item
                     wrapperCol={{
                         offset: 4,

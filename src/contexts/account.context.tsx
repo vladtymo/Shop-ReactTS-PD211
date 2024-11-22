@@ -4,6 +4,7 @@ import { AccountData } from "../models/accounts";
 export type AccountContextType = {
     account: AccountData | null;
     clear: () => void;
+    isAuth: () => boolean;
     setAccount: (payload: AccountData | null) => void;
 };
 
@@ -15,9 +16,10 @@ export const AccountProvider: React.FC<{ children: React.ReactNode }> = ({ child
     const clear = () => {
         setAccount(null);
     }
+    const isAuth = () => account !== null;
 
     return (
-        <AccountContext.Provider value={{ account, setAccount, clear }}>
+        <AccountContext.Provider value={{ account, isAuth, setAccount, clear }}>
             {children}
         </AccountContext.Provider>
     );
