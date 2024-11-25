@@ -8,6 +8,7 @@ export interface ProductModel {
     description?: string;
     categoryId: number;
     categoryName?: string;
+    liked: boolean;
 }
 
 export type ProductFormField = {

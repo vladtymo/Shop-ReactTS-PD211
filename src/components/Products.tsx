@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Space, Table, TableProps, Tag } from 'antd';
-import { DeleteOutlined, EditFilled, InfoCircleOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditFilled, InfoCircleOutlined, LikeFilled, LikeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { ProductModel } from '../models/products';
+import { likesService } from '../services/likes.service';
 
 const api = import.meta.env.VITE_PRODUCTS_URL;
 
@@ -14,11 +15,35 @@ const Products = () => {
         // code...
         fetch(api + "all").then(res => res.json()).then(data => {
             const items = data as ProductModel[];
+
+            for (const i of items) {
+                if (likesService.isLiked(i.id))
+                    i.liked = true;
+            }
+
             setProducts(items.sort((x, y) => y.id - x.id));
         });
     }, []);
 
+    const like = (id: number) => {
+        likesService.toggle(id);
+
+        setProducts((prevProducts) =>
+            prevProducts.map((product) =>
+                product.id === id
+                    ? { ...product, liked: likesService.isLiked(id) }
+                    : product
+            )
+        );
+    }
+
     const columns: TableProps<ProductModel>['columns'] = [
+        {
+            title: 'Like',
+            render: (_, i) => (
+                <Button color="primary" icon={i.liked ? <LikeFilled /> : <LikeOutlined />} onClick={() => like(i.id)} />
+            ),
+        },
         {
             title: 'Image',
             dataIndex: 'imageUrl',
